@@ -1,0 +1,14 @@
+# Arquivos compilados do Java
+*.class
+
+# Pastas de configurações de IDEs (Eclipse, IntelliJ, VS Code)
+.mtj.tmp/
+*.custom
+*.workspace
+.idea/
+.vscode/
+*.iml
+
+# Arquivos de log do sistema operacional
+.DS_Store
+Thumbs.db
