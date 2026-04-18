@@ -7,6 +7,7 @@ public class Livro {
     private String autor;
     private String categoria;
 
+    //construtor
     public Livro(String titulo, int codigo, int totPaginas, String autor, String categoria){
         this.setTitulo(titulo);
         this.setCodigo(codigo);
