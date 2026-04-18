@@ -17,6 +17,15 @@ public class Leitor {
         this.setDebito(0d);
     }
 
+    //metodos personalizados
+    public void adicionarEmprestimo(Emprestimo emprestimo){
+        this.emprestimos.add(emprestimo);
+    }
+
+    public void removerEmprestimo(Emprestimo emprestimo){
+        this.emprestimos.remove(emprestimo);
+    }
+
     //getters e setters
     public String getNome() {
         return nome;

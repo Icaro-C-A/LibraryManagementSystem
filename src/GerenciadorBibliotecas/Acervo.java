@@ -10,7 +10,7 @@ public class Acervo {
     public Acervo() {
     }
 
-    //metodos abstratos
+    //metodos personalizados
     public void adicionarLivro(Livro novoLivro){
         this.livros.add(novoLivro);
     }
