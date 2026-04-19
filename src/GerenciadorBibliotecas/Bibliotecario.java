@@ -22,4 +22,8 @@ public class Bibliotecario {
     public void cadastrarLivro(Livro livro, Acervo acervo){
         acervo.adicionarLivro(livro);
     }
+
+    public Leitor cadastrarLeitor(String nome, int cadastro){
+        return new Leitor(nome, cadastro);
+    }
 }
