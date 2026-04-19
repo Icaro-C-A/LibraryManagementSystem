@@ -18,4 +18,8 @@ public class Bibliotecario {
             System.out.println("O valor para pagar multa é inválido.");
         }
     }
+
+    public void cadastrarLivro(Livro livro, Acervo acervo){
+        acervo.adicionarLivro(livro);
+    }
 }
