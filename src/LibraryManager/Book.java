@@ -9,12 +9,13 @@ public class Book {
     private boolean borrowed;
 
     //constructor
-    public Book(String title, int code, int totPages, String author, String category){
+    public Book(String title, int code, int totPages, String author, String category) {
         this.setTitle(title);
         this.setCode(code);
         this.setTotPages(totPages);
         this.setAuthor(author);
         this.setCategory(category);
+        this.setBorrowed(true);
     }
 
     //getters and setters
