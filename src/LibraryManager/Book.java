@@ -15,7 +15,7 @@ public class Book {
         this.setTotPages(totPages);
         this.setAuthor(author);
         this.setCategory(category);
-        this.setBorrowed(true);
+        this.setBorrowed(false);
     }
 
     //getters and setters
