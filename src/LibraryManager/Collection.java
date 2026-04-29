@@ -23,10 +23,6 @@ public class Collection {
         return this.books.size();
     }
 
-    public void updateBookState(Book book, boolean borrowed){
-        book.setBorrowed(borrowed);
-    }
-
     //getters and setters
     public List<Book> getBooks() {
         return books;
