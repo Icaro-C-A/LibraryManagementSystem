@@ -6,6 +6,7 @@ public class Book {
     private int totPages;
     private String author;
     private String category;
+    private boolean borrowed;
 
     //constructor
     public Book(String title, int code, int totPages, String author, String category){
@@ -55,5 +56,13 @@ public class Book {
 
     public void setTotPages(int totPages) {
         this.totPages = totPages;
+    }
+
+    public boolean isBorrowed() {
+        return borrowed;
+    }
+
+    public void setBorrowed(boolean borrowed) {
+        this.borrowed = borrowed;
     }
 }
