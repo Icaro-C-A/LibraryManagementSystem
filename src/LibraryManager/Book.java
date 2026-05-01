@@ -18,6 +18,15 @@ public class Book {
         this.setBorrowed(false);
     }
 
+    public Book(String title, int code, int totPages, String author, String category, boolean borrowed) {
+        this.setTitle(title);
+        this.setCode(code);
+        this.setTotPages(totPages);
+        this.setAuthor(author);
+        this.setCategory(category);
+        this.setBorrowed(borrowed);
+    }
+
     //getters and setters
     public String getTitle() {
         return title;

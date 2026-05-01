@@ -1,5 +1,9 @@
 package Files;
-import java.io.File;
+import LibraryManager.*;
+
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FilesManager {
     private final String DATA_FOLDER = "data";
@@ -21,6 +25,42 @@ public class FilesManager {
     }
 
     //personalized methods
+    public Collection loadCollection(){
+        Collection collection = new Collection();
+        collection.setBooks(readCollection());
+
+        return collection;
+    }
+
+    public List<Book> readCollection(){
+        String filePath = DATA_FOLDER + File.separator + COLLECTION_FILE;
+        List <Book> books = new ArrayList<>();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))){
+            String line;
+            while ((line = reader.readLine()) != null){
+                line = line.replace(";", "");
+                String[] data = line.split(",");
+
+                int code = Integer.parseInt(data[0].trim());
+                String title = data[1].trim();
+                int totPages = Integer.parseInt(data[2].trim());
+                String author = data[3].trim();
+                String category = data[4].trim();
+                boolean borrowed = Boolean.parseBoolean(data[5].trim());
+                Book book = new Book(title,code , totPages, author, category, borrowed);
+                books.add(book);
+            }
+
+        }catch (FileNotFoundException e){
+            System.out.println("Could not locate file");
+        }catch (IOException e){
+            System.out.println("Something went wrong");
+        }
+
+        return books;
+    }
+
     private void createFile(String path, String name){
         File file = new File(path, name);
         try {
