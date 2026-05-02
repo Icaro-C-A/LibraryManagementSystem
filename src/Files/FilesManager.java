@@ -25,6 +25,24 @@ public class FilesManager {
     }
 
     //personalized methods
+    public void saveCollection(Collection collection){
+        String filePath = DATA_FOLDER + File.separator + COLLECTION_FILE;
+        try(BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))){
+            for (Book book : collection.getBooks()){
+                String line = book.getCode() + ";";
+                line += book.getTitle() + ";";
+                line += book.getTotPages() + ";";
+                line += book.getAuthor() + ";";
+                line += book.getCategory() + ";";
+                line += book.isBorrowed() + ";";
+                writer.write(line);
+                writer.newLine();
+            }
+        }catch (Exception e){
+            System.out.println("Something went wrong");
+        }
+    }
+
     public Collection loadCollection(){
         Collection collection = new Collection();
         collection.setBooks(readCollection());
@@ -39,8 +57,7 @@ public class FilesManager {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))){
             String line;
             while ((line = reader.readLine()) != null){
-                line = line.replace(";", "");
-                String[] data = line.split(",");
+                String[] data = line.split(";");
 
                 int code = Integer.parseInt(data[0].trim());
                 String title = data[1].trim();
