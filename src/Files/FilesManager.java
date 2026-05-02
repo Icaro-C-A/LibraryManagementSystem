@@ -1,5 +1,6 @@
 package Files;
 import LibraryManager.*;
+import LibraryManager.Reader;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -58,13 +59,12 @@ public class FilesManager {
             String line;
             while ((line = reader.readLine()) != null){
                 String[] data = line.split(";");
-
-                int code = Integer.parseInt(data[0].trim());
-                String title = data[1].trim();
-                int totPages = Integer.parseInt(data[2].trim());
-                String author = data[3].trim();
-                String category = data[4].trim();
-                boolean borrowed = Boolean.parseBoolean(data[5].trim());
+                int code = Integer.parseInt(data[0]);
+                String title = data[1];
+                int totPages = Integer.parseInt(data[2]);
+                String author = data[3];
+                String category = data[4];
+                boolean borrowed = Boolean.parseBoolean(data[5]);
                 Book book = new Book(title,code , totPages, author, category, borrowed);
                 books.add(book);
             }
@@ -76,6 +76,22 @@ public class FilesManager {
         }
 
         return books;
+    }
+
+    public void saveReaders(List<Reader> readers){
+        String filePath = DATA_FOLDER + File.separator + READERS_FILE;
+        try(BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))){
+            for (Reader reader: readers){
+                String line = reader.getName() + ";";
+                line += reader.getRegister() + ";";
+                line += reader.isRegistered() + ";";
+                line += reader.getDebt() + ";";
+                writer.write(line);
+                writer.newLine();
+            }
+        }catch (Exception e){
+            System.out.println("Something went wrong");
+        }
     }
 
     private void createFile(String path, String name){
