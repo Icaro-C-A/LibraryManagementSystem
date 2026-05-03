@@ -46,12 +46,6 @@ public class FilesManager {
 
     public Collection loadCollection(){
         Collection collection = new Collection();
-        collection.setBooks(readCollection());
-
-        return collection;
-    }
-
-    public List<Book> readCollection(){
         String filePath = DATA_FOLDER + File.separator + COLLECTION_FILE;
         List <Book> books = new ArrayList<>();
 
@@ -75,7 +69,8 @@ public class FilesManager {
             System.out.println("Something went wrong");
         }
 
-        return books;
+        collection.setBooks(books);
+        return collection;
     }
 
     public void saveReaders(List<Reader> readers){
@@ -92,6 +87,31 @@ public class FilesManager {
         }catch (Exception e){
             System.out.println("Something went wrong");
         }
+    }
+
+    public List<Reader> loadReaders(){
+        String filePath = DATA_FOLDER + File.separator + READERS_FILE;
+        List <Reader> readers = new ArrayList<>();
+
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath))){
+            String line;
+            while ((line = bufferedReader.readLine()) != null){
+                String[] data = line.split(";");
+                String name = data[0];
+                int code = Integer.parseInt(data[1]);
+                boolean registered = Boolean.parseBoolean(data[2]);
+                float debt = Float.parseFloat(data[3]);
+                Reader reader = new Reader(name, code, registered, debt);
+                readers.add(reader);
+            }
+
+        }catch (FileNotFoundException e){
+            System.out.println("Could not locate file");
+        }catch (IOException e){
+            System.out.println("Something went wrong");
+        }
+
+        return readers;
     }
 
     private void createFile(String path, String name){

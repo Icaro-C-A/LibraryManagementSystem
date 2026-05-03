@@ -17,6 +17,13 @@ public class Reader {
         this.setDebt(0d);
     }
 
+    public Reader(String name, int register, boolean registered, double debt){
+        this.setName(name);
+        this.setRegister(register);
+        this.setRegistered(registered);
+        this.setDebt(debt);
+    }
+
     //personalized methods
     public void addLoan(Loan loan){
         this.loans.add(loan);
