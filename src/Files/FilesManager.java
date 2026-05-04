@@ -59,7 +59,7 @@ public class FilesManager {
                 String author = data[3];
                 String category = data[4];
                 boolean borrowed = Boolean.parseBoolean(data[5]);
-                Book book = new Book(title,code , totPages, author, category, borrowed);
+                Book book = new Book(title, code, totPages, author, category, borrowed);
                 books.add(book);
             }
 
@@ -112,6 +112,23 @@ public class FilesManager {
         }
 
         return readers;
+    }
+
+    public void saveLoans(List<Loan> loans){
+        String filePath = DATA_FOLDER + File.separator + LOANS_FILE;
+        try(BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))){
+            for (Loan loan: loans){
+                String line = loan.getCode() + ";";
+                line += loan.getLoanDate() + ";";
+                line += loan.getReturnDate() + ";";
+                line += loan.getBook().getCode() + ";";
+                line += loan.getReader().getRegister() + ";";
+                writer.write(line);
+                writer.newLine();
+            }
+        }catch (Exception e){
+            System.out.println("Something went wrong");
+        }
     }
 
     private void createFile(String path, String name){
