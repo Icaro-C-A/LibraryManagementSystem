@@ -1,4 +1,6 @@
 package LibraryManager;
+import Files.FilesManager;
+
 import java.time.LocalDate;
 
 
@@ -16,6 +18,14 @@ public class Loan {
         this.setCode(code);
         this.setBook(book);
         this.setReader(reader);
+    }
+
+    public Loan(int code, LocalDate loanDate, LocalDate returnDate, int bookCode, int readerCode){
+        this.setCode(code);
+        this.setLoanDate(loanDate);
+        this.setReturnDate(returnDate);
+        this.setReader(FilesManager.searchReader(readerCode));
+        this.setBook(FilesManager.searchBook(bookCode));
     }
 
     //getters and setters
@@ -57,5 +67,16 @@ public class Loan {
 
     public void setReturnDate(LocalDate data){
         this.returnDate = data;
+    }
+
+    @Override
+    public String toString() {
+        return "Loan{" +
+                "loanDate=" + loanDate +
+                ", returnDate=" + returnDate +
+                ", code=" + code +
+                ", book=" + book.getCode() +
+                ", reader=" + reader.getRegister() +
+                '}';
     }
 }

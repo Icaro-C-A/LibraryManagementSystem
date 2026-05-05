@@ -3,14 +3,15 @@ import LibraryManager.*;
 import LibraryManager.Reader;
 
 import java.io.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class FilesManager {
-    private final String DATA_FOLDER = "data";
-    private final String COLLECTION_FILE = "collections.txt";
-    private final String READERS_FILE = "readers.txt";
-    private final String LOANS_FILE = "loans.txt";
+    private final static String DATA_FOLDER = "data";
+    private final static String COLLECTION_FILE = "collections.txt";
+    private final static String READERS_FILE = "readers.txt";
+    private final static String LOANS_FILE = "loans.txt";
 
     //constructor
     public FilesManager() {
@@ -129,6 +130,80 @@ public class FilesManager {
         }catch (Exception e){
             System.out.println("Something went wrong");
         }
+    }
+
+    public static List<Loan> loadLoans(){
+        String filePath = DATA_FOLDER + File.separator + LOANS_FILE;
+        List <Loan> loans = new ArrayList<>();
+
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath))){
+            String line;
+            while ((line = bufferedReader.readLine()) != null){
+                String[] data = line.split(";");
+                int code = Integer.parseInt(data[0]);
+                LocalDate loanDate = LocalDate.parse(data[1]);
+                LocalDate returnDate = LocalDate.parse(data[2]);
+                int bookCode = Integer.parseInt(data[3]);
+                int readerCode = Integer.parseInt(data[4]);
+                Loan loan = new Loan (code, loanDate, returnDate, bookCode, readerCode);
+                loans.add(loan);
+            }
+
+        }catch (FileNotFoundException e){
+            System.out.println("Could not locate file");
+        }catch (IOException e){
+            System.out.println("Something went wrong");
+        }
+
+        return loans;
+    }
+
+    public static Book searchBook(int code){
+        String filePath = DATA_FOLDER + File.separator + COLLECTION_FILE;
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))){
+            String line;
+            while ((line = reader.readLine()) != null){
+                String[] data = line.split(";");
+                int bookCode = Integer.parseInt(data[0]);
+                if (bookCode == code){
+                    String title = data[1];
+                    int totPages = Integer.parseInt(data[2]);
+                    String author = data[3];
+                    String category = data[4];
+                    boolean borrowed = Boolean.parseBoolean(data[5]);
+                    return new Book(title, bookCode, totPages, author, category, borrowed);
+                }
+            }
+        }catch (FileNotFoundException e){
+            System.out.println("Could not locate file");
+        }catch (IOException e){
+            System.out.println("Something went wrong");
+        }
+
+        return null;
+    }
+
+    public static Reader searchReader(int code){
+        String filePath = DATA_FOLDER + File.separator + READERS_FILE;
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))){
+            String line;
+            while ((line = reader.readLine()) != null){
+                String[] data = line.split(";");
+                int readerCode = Integer.parseInt(data[1]);
+                if (readerCode == code){
+                    String name = data[0];
+                    boolean registered = Boolean.parseBoolean(data[2]);
+                    float debt = Float.parseFloat(data[3]);
+                    return new Reader(name, code, registered, debt);
+                }
+            }
+        }catch (FileNotFoundException e){
+            System.out.println("Could not locate file");
+        }catch (IOException e){
+            System.out.println("Something went wrong");
+        }
+
+        return null;
     }
 
     private void createFile(String path, String name){
