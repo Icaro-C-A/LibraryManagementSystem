@@ -1,6 +1,7 @@
 package LibraryManager;
 
 public class Book {
+    private static int added;
     private String title;
     private int code;
     private int totPages;
@@ -9,13 +10,14 @@ public class Book {
     private boolean borrowed;
 
     //constructor
-    public Book(String title, int code, int totPages, String author, String category) {
+    public Book(String title, int totPages, String author, String category) {
         this.setTitle(title);
-        this.setCode(code);
+        this.setCode(added);
         this.setTotPages(totPages);
         this.setAuthor(author);
         this.setCategory(category);
         this.setBorrowed(false);
+        added++;
     }
 
     public Book(String title, int code, int totPages, String author, String category, boolean borrowed) {

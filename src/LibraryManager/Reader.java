@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Reader {
+    private static int added;
     private String name;
     private int register;
     private boolean registered;
@@ -10,11 +11,12 @@ public class Reader {
     private double debt;
 
     //constructor
-    public Reader(String name, int register){
+    public Reader(String name){
         this.setName(name);
-        this.setRegister(register);
+        this.setRegister(added);
         this.setRegistered(true);
         this.setDebt(0d);
+        added ++;
     }
 
     public Reader(String name, int register, boolean registered, double debt){

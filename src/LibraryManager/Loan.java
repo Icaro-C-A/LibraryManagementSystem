@@ -5,6 +5,7 @@ import java.time.LocalDate;
 
 
 public class Loan {
+    private static int added;
     private LocalDate loanDate;
     private LocalDate returnDate;
     private int code;
@@ -12,12 +13,13 @@ public class Loan {
     private Reader reader;
 
     //constructor
-    public Loan(int code, Book book, Reader reader) {
+    public Loan(Book book, Reader reader) {
         this.setLoanDate(LocalDate.now());
         this.setReturnDate(this.getLoanDate().plusDays(7));
-        this.setCode(code);
+        this.setCode(added);
         this.setBook(book);
         this.setReader(reader);
+        added++;
     }
 
     public Loan(int code, LocalDate loanDate, LocalDate returnDate, int bookCode, int readerCode){
