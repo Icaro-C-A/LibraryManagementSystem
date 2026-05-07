@@ -1,8 +1,8 @@
 package LibraryManager;
 
 public class Librarian {
-    public void borrowBook(int code, Book book, Reader reader){
-        Loan loan = new Loan(code, book, reader);
+    public void borrowBook(Book book, Reader reader){
+        Loan loan = new Loan(book, reader);
         reader.addLoan(loan);
     }
 
@@ -23,7 +23,7 @@ public class Librarian {
         collection.addBook(book);
     }
 
-    public Reader registerReader(String name, int register){
-        return new Reader(name, register);
+    public Reader registerReader(String name){
+        return new Reader(name);
     }
 }

@@ -226,8 +226,6 @@ public class FilesManager {
     private void prepareFile(String path, String name){
         if (!fileExists(path, name)){
             createFile(path, name);
-        }else{
-            System.out.println("File " + path + name + " already exists.");
         }
     }
 }
