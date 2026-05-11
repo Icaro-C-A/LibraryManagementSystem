@@ -1,6 +1,13 @@
 package LibraryManager;
 
+import Files.FilesManager;
+
 public class Librarian {
+    public void registerBook(FilesManager filesManager, Collection collection, Book book){
+        collection.addBook(book);
+        filesManager.saveCollection(collection);
+    }
+
     public void borrowBook(Book book, Reader reader){
         Loan loan = new Loan(book, reader);
         reader.addLoan(loan);
@@ -17,10 +24,6 @@ public class Librarian {
         }else{
             System.out.println("The amount to pay fine is invalid.");
         }
-    }
-
-    public void registerBook(Book book, Collection collection){
-        collection.addBook(book);
     }
 
     public Reader registerReader(String name){
