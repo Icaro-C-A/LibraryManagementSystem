@@ -8,6 +8,11 @@ public class Librarian {
         filesManager.saveCollection(collection);
     }
 
+    public void removeBook(FilesManager filesManager, Collection collection, Book book){
+        collection.removeBook(book);
+        filesManager.saveCollection(collection);
+    }
+
     public void borrowBook(Book book, Reader reader){
         Loan loan = new Loan(book, reader);
         reader.addLoan(loan);

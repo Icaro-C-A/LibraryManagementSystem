@@ -16,7 +16,8 @@ public class Collection {
     }
 
     public void removeBook(Book book){
-        this.books.remove(book);
+        int code = book.getCode();
+        this.books.remove(this.books.get(code));
     }
 
     public int getBooksSize() {

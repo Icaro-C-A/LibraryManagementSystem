@@ -63,6 +63,38 @@ public class Program {
                         }
                     }
                     break;
+                case 2:
+                    int bookCode;
+                    while (true) {
+                        try {
+                            System.out.print("Enter book code: ");
+                            bookCode = scanner.nextInt();
+                            scanner.nextLine();
+                            if (bookCode < 0) {
+                                System.out.println("Please enter a number equal or greater than O");
+                                continue;
+                            }
+                            break;
+                        } catch (InputMismatchException e) {
+                            scanner.nextLine();
+                            System.out.println("Invalid integer");
+                        } catch (Exception e) {
+                            scanner.nextLine();
+                            System.out.println("Something went wrong");
+                        }
+                    }
+
+                    Book book = FilesManager.searchBook(bookCode);
+                    if (book == null){
+                        System.out.println("Book not found!");
+                    }else{
+                        if (book.isBorrowed()){
+                            System.out.println("Could not remove a borrowed book!");
+                        }else{
+                            librarian.removeBook(filesManager, collection, book);
+                            System.out.println("Book removed successfully!");
+                        }
+                    }
             }
         }
     }
