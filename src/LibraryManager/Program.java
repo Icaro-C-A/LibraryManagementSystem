@@ -95,6 +95,8 @@ public class Program {
                             System.out.println("Book removed successfully!");
                         }
                     }
+
+                    break;
             }
         }
     }
