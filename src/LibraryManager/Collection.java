@@ -17,7 +17,16 @@ public class Collection {
 
     public void removeBook(Book book){
         int code = book.getCode();
-        this.books.remove(this.books.get(code));
+        this.books.remove(book);
+    }
+
+    public Book searchBookByCode(int bookCode){
+        for (Book book : this.books){
+            if (book.getCode() == bookCode){
+                return book;
+            }
+        }
+        return null;
     }
 
     public int getBooksSize() {

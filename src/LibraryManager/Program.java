@@ -84,7 +84,7 @@ public class Program {
                         }
                     }
 
-                    Book book = FilesManager.searchBook(bookCode);
+                    Book book = collection.searchBookByCode(bookCode);
                     if (book == null){
                         System.out.println("Book not found!");
                     }else{
