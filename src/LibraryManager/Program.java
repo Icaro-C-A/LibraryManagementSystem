@@ -2,6 +2,7 @@ package LibraryManager;
 
 import Files.FilesManager;
 
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
@@ -13,6 +14,7 @@ public class Program {
         Scanner scanner = new Scanner(System.in);
         FilesManager filesManager = new FilesManager();
         Collection collection = filesManager.loadCollection();
+        List<Reader> readers = filesManager.loadReaders();
         Librarian librarian = new Librarian();
         while (true){
             System.out.println("0. Exit");
@@ -38,6 +40,9 @@ public class Program {
                     break;
                 case 2:
                     removeBook(collection, filesManager, librarian);
+                    break;
+                case 6:
+                    registerReader(librarian, filesManager,  readers);
                     break;
             }
         }
@@ -108,5 +113,13 @@ public class Program {
                 System.out.println("Book removed successfully!");
             }
         }
+    }
+
+    public static void registerReader(Librarian librarian, FilesManager filesManager, List<Reader> readers){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter reader name: ");
+        String readerName = scanner.nextLine();
+        librarian.registerReader(readerName, filesManager, readers);
+        System.out.println("Reader added successfully!");
     }
 }

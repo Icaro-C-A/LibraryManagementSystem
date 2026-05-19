@@ -2,6 +2,8 @@ package LibraryManager;
 
 import Files.FilesManager;
 
+import java.util.List;
+
 public class Librarian {
     public void registerBook(FilesManager filesManager, Collection collection, Book book){
         collection.addBook(book);
@@ -31,7 +33,9 @@ public class Librarian {
         }
     }
 
-    public Reader registerReader(String name){
-        return new Reader(name);
+    public void registerReader(String name, FilesManager filesManager, List<Reader> readers){
+        Reader reader = new Reader(name);
+        readers.add(reader);
+        filesManager.saveReaders(readers);
     }
 }
