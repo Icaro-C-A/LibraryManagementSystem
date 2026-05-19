@@ -34,69 +34,78 @@ public class Program {
                 case 0:
                     return;
                 case 1:
-                    String title, author, category;
-                    int totPages;
-                    System.out.print("Enter title: ");
-                    title = scanner.nextLine();
-                    System.out.print("Enther author: ");
-                    author = scanner.nextLine();
-                    System.out.print("Enter category: ");
-                    category = scanner.nextLine();
-                    while (true) {
-                        try {
-                            System.out.print("Enter the total amount of pages: ");
-                            totPages = scanner.nextInt();
-                            scanner.nextLine();
-                            if (totPages <= 0){
-                                System.out.println("Please enter a positive integer");
-                                continue;
-                            }
-                            librarian.registerBook(filesManager, collection, new Book(title, totPages, author, category));
-                            System.out.println("Book added successfully!");
-                            break;
-                        } catch (InputMismatchException e) {
-                            scanner.nextLine();
-                            System.out.println("Invalid integer");
-                        } catch (Exception e) {
-                            scanner.nextLine();
-                            System.out.println("Something went wrong");
-                        }
-                    }
+                    registerBook(collection, filesManager, librarian);
                     break;
                 case 2:
-                    int bookCode;
-                    while (true) {
-                        try {
-                            System.out.print("Enter book code: ");
-                            bookCode = scanner.nextInt();
-                            scanner.nextLine();
-                            if (bookCode < 0) {
-                                System.out.println("Please enter a number equal or greater than O");
-                                continue;
-                            }
-                            break;
-                        } catch (InputMismatchException e) {
-                            scanner.nextLine();
-                            System.out.println("Invalid integer");
-                        } catch (Exception e) {
-                            scanner.nextLine();
-                            System.out.println("Something went wrong");
-                        }
-                    }
-
-                    Book book = collection.searchBookByCode(bookCode);
-                    if (book == null){
-                        System.out.println("Book not found!");
-                    }else{
-                        if (book.isBorrowed()){
-                            System.out.println("Could not remove a borrowed book!");
-                        }else{
-                            librarian.removeBook(filesManager, collection, book);
-                            System.out.println("Book removed successfully!");
-                        }
-                    }
-
+                    removeBook(collection, filesManager, librarian);
                     break;
+            }
+        }
+    }
+
+    public static void registerBook(Collection collection, FilesManager filesManager, Librarian librarian){
+        Scanner scanner = new Scanner(System.in);
+        String title, author, category;
+        int totPages;
+        System.out.print("Enter title: ");
+        title = scanner.nextLine();
+        System.out.print("Enther author: ");
+        author = scanner.nextLine();
+        System.out.print("Enter category: ");
+        category = scanner.nextLine();
+        while (true) {
+            try {
+                System.out.print("Enter the total amount of pages: ");
+                totPages = scanner.nextInt();
+                scanner.nextLine();
+                if (totPages <= 0){
+                    System.out.println("Please enter a positive integer");
+                    continue;
+                }
+                librarian.registerBook(filesManager, collection, new Book(title, totPages, author, category));
+                System.out.println("Book added successfully!");
+                break;
+            } catch (InputMismatchException e) {
+                scanner.nextLine();
+                System.out.println("Invalid integer");
+            } catch (Exception e) {
+                scanner.nextLine();
+                System.out.println("Something went wrong");
+            }
+        }
+    }
+
+    public static void removeBook(Collection collection, FilesManager filesManager, Librarian librarian){
+        int bookCode;
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            try {
+                System.out.print("Enter book code: ");
+                bookCode = scanner.nextInt();
+                scanner.nextLine();
+                if (bookCode < 0) {
+                    System.out.println("Please enter a number equal or greater than O");
+                    continue;
+                }
+                break;
+            } catch (InputMismatchException e) {
+                scanner.nextLine();
+                System.out.println("Invalid integer");
+            } catch (Exception e) {
+                scanner.nextLine();
+                System.out.println("Something went wrong");
+            }
+        }
+
+        Book book = collection.searchBookByCode(bookCode);
+        if (book == null){
+            System.out.println("Book not found!");
+        }else{
+            if (book.isBorrowed()){
+                System.out.println("Could not remove a borrowed book!");
+            }else{
+                librarian.removeBook(filesManager, collection, book);
+                System.out.println("Book removed successfully!");
             }
         }
     }
