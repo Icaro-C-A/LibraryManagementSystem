@@ -1,6 +1,7 @@
-package LibraryManager;
-import Files.FilesManager;
+package Model;
+import Persistence.FilesManager;
 
+import java.io.IOException;
 import java.time.LocalDate;
 
 
@@ -22,7 +23,7 @@ public class Loan {
         added++;
     }
 
-    public Loan(int code, LocalDate loanDate, LocalDate returnDate, int bookCode, int readerCode){
+    public Loan(int code, LocalDate loanDate, LocalDate returnDate, int bookCode, int readerCode) throws IOException {
         this.setCode(code);
         this.setLoanDate(loanDate);
         this.setReturnDate(returnDate);

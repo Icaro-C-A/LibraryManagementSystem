@@ -1,4 +1,5 @@
-package LibraryManager;
+package Model;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +28,11 @@ public class Collection {
             }
         }
         return null;
+    }
+
+    public void borrowBook(int bookCode){
+        Book book = searchBookByCode(bookCode);
+        book.setBorrowed(true);
     }
 
     public int getBooksSize() {

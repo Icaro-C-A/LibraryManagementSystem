@@ -1,4 +1,4 @@
-package LibraryManager;
+package Model;
 
 public class Book {
     private static int added;
