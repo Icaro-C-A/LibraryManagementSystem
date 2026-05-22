@@ -1,10 +1,11 @@
 package Model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Reader {
-    private static int added;
+    private static int added = 0;
     private String name;
     private int register;
     private boolean registered;
@@ -34,6 +35,17 @@ public class Reader {
 
     public void removeLoan(Loan loan){
         this.loans.remove(loan);
+    }
+
+    public boolean canBorrow() {
+        LocalDate today = LocalDate.now();
+
+        for (Loan loan : loans) {
+            if (today.isAfter(loan.getReturnDate())) {
+                return false;
+            }
+        }
+        return true;
     }
 
     //getters and setters

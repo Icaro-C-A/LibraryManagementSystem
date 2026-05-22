@@ -32,6 +32,9 @@ public class LibraryController {
                 case 2:
                     removeBook();
                     break;
+                case 3:
+                    borrowBook();
+                    break;
                 case 6:
                     registerReader();
                     break;
@@ -94,6 +97,49 @@ public class LibraryController {
             view.showMessage("Reader registered successfully!");
         } catch (IOException e) {
             view.showMessage("Error saving to database!");
+        }
+    }
+
+    private void borrowBook(){
+        int bookCode = view.readInt("Enter book code: ");
+        Book book = collection.searchBookByCode(bookCode);
+
+        if (book == null) {
+            view.showMessage("Book not found!");
+            return;
+        }
+        if (book.isBorrowed()) {
+            view.showMessage("This book is already currently borrowed!");
+            return;
+        }
+
+        int readerCode = view.readInt("Enter reader code: ");
+        Reader reader = readers.stream()
+                .filter(r -> r.getRegister() == readerCode)
+                .findFirst()
+                .orElse(null);
+
+        if (reader == null) {
+            view.showMessage("Reader not found!");
+            return;
+        }
+        if (!reader.canBorrow()){
+            System.out.println("Reader is owing book(s) for 30 days or more. Can't borrow a book.");
+            return;
+        }
+
+        Loan loan = new Loan(book, reader);
+        loans.add(loan);
+        book.setBorrowed(true);
+
+        try {
+            filesManager.saveCollection(collection);
+            filesManager.saveLoans(loans);
+            view.showMessage("Book successfully borrowed!");
+        } catch (IOException e) {
+            loans.remove(loan);
+            book.setBorrowed(false);
+            view.showMessage("Database Error: Could not save the loan. Action cancelled.");
         }
     }
 }
