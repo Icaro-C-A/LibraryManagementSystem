@@ -6,7 +6,7 @@ import java.time.LocalDate;
 
 
 public class Loan {
-    private static int added;
+    private static int added = 0;
     private LocalDate loanDate;
     private LocalDate returnDate;
     private int code;
