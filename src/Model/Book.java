@@ -1,7 +1,7 @@
 package Model;
 
 public class Book {
-    private static int added;
+    private static int added = 0;
     private String title;
     private int code;
     private int totPages;
